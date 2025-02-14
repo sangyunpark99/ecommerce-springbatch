@@ -1,0 +1,12 @@
+services:
+  postgresql:
+    image:
+      postgres:latest
+    restart: always
+    volumes: # PostgreSql 컨테이너에서 데이터를 로컬 파일 시스템에 저장하여 컨테이너 삭제 후에도 데이터 유지
+      - ./data/ecommerce-db:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: localpw
