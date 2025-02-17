@@ -60,7 +60,7 @@ public class ProductUploadJobConfiguration {
   @Bean
   @StepScope
   public FlatFileItemReader<ProductUploadCsvRow> productReader(
-      @Value("#{jobParameters['inputFilePath']}") String path
+      @Value("#{jobParameters['inputFilePath']}") String path // 프로그램 변수로 주어짐 configuration 편집에 있음
   ) {
     return new FlatFileItemReaderBuilder<ProductUploadCsvRow>()
         .name("productReader")
