@@ -6,6 +6,9 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.batch.dto.ProductUploadCsvRow;
+import org.example.batch.util.DateTimeUtil;
+import org.example.batch.util.RandomUtils;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,7 +22,7 @@ public class Product {
   private String productName;
   private LocalDate salesStartDate;
   private LocalDate salesEndDate;
-  private ProductStatus productStatus;
+  private String productStatus;
   private String brand;
   private String manufacturer;
 
@@ -27,4 +30,23 @@ public class Product {
   private int stockQuantity;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
+
+  public static Product from(ProductUploadCsvRow row) {
+    LocalDateTime now = LocalDateTime.now();
+    return new Product(
+        RandomUtils.generateRandomId(),
+        row.getSellerId(),
+        row.getCategory(),
+        row.getProductName(),
+        DateTimeUtil.toLocalDate(row.getSalesStartDate()),
+        DateTimeUtil.toLocalDate(row.getSalesEndDate()),
+        row.getProductStatus(),
+        row.getBrand(),
+        row.getManufacturer(),
+        row.getSalesPrice(),
+        row.getStockQuantity(),
+        now,
+        now
+    );
+  }
 }
